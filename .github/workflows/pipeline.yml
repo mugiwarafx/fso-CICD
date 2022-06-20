@@ -1,5 +1,13 @@
-name: ci
-on: push
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
@@ -11,7 +19,7 @@ jobs:
       - name: lint
         run: npm run eslint
       - name: build
-        run: npm run build
+        run: npm run start
       - name: Test Error
         if: ${{ failure() }}
         uses: rjstone/discord-webhook-notify@v1

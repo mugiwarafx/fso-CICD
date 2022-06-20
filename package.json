@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "run-p --race start cy:run",
-    "lint": "standard --verbose --fix *.js src/**/*.js",
+    "eslint": "npx eslint --ext .jsx,.js src",
     "start": "node src/start.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "commit": "commit-wizard",
@@ -60,6 +60,10 @@
   },
   "devDependencies": {
     "cypress": "9.4.1",
+    "eslint": "8.18.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-plugin-cypress": "2.12.1",
+    "eslint-plugin-import": "2.26.0",
     "now-pipeline": "1.10.0",
     "npm-run-all": "4.1.2",
     "pre-git": "3.17.0",
