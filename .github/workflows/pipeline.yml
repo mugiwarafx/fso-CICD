@@ -1,0 +1,47 @@
+name: ci
+on: push
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v2
+      - name: npm install
+        run: npm install
+      - name: lint
+        run: npm run eslint
+      - name: build
+        run: npm run build
+      - name: Test Error
+        if: ${{ failure() }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          details: Build failed
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: test
+        run: npm run test
+      - name: Run tests 🧪
+        # https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm start
+          wait-on: 'http://localhost:3000'
+  tag_release:
+    if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Bump version and push tag
+        if: ${{ github.event_name == 'push' }}
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          DEFAULT_BUMP: patch
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test Info
+        if: ${{ success() }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          details: A new version of Pokedex deployed.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
