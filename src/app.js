@@ -123,7 +123,7 @@ app.get('/health', (req, res) => {
 })
 
 app.get('/version', (req, res) => {
-  res.send('v1') // change this string to ensure a new version deployed
+  res.send('FSO ADMINS seal of approval 🦄') // change this string to ensure a new version deployed
 })
 
 app.get('/', broadcast, sendIndexPage)
