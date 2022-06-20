@@ -1,0 +1,90 @@
+{
+  "name": "todomvc-express",
+  "description": "TodoMVC with server-side rendering ",
+  "version": "0.0.0-semantic-release",
+  "main": "src/app.js",
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "run-p --race start cy:run",
+    "lint": "standard --verbose --fix *.js src/**/*.js",
+    "start": "node src/start.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "commit": "commit-wizard",
+    "prod-test": "CYPRESS_HOST=$NOW_URL cypress run",
+    "watch": "nodemon",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "deploy": "now-pipeline --test 'npm run prod-test'",
+    "prune-deploys": "now-pipeline-prune",
+    "dev": "start-test 3000 cy:open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bahmutov/todomvc-express.git"
+  },
+  "keywords": [
+    "todo",
+    "todos",
+    "todomvc",
+    "backend",
+    "example",
+    "express",
+    "node",
+    "expressjs"
+  ],
+  "files": [
+    "src"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahmutov/todomvc-express/issues"
+  },
+  "homepage": "https://github.com/bahmutov/todomvc-express#readme",
+  "dependencies": {
+    "body-parser": "1.18.2",
+    "cache-manager": "2.6.0",
+    "check-more-types": "2.24.0",
+    "express": "5.0.0-alpha.2",
+    "fake-todos": "1.8.0",
+    "fs-extra": "5.0.0",
+    "js-beautify": "1.7.5",
+    "lazy-ass": "1.6.0",
+    "method-override": "2.3.10",
+    "morgan": "1.9.0",
+    "p-min-delay": "2.0.0",
+    "ramda": "0.25.0",
+    "todomvc-model": "1.2.0",
+    "vdom-to-html": "2.3.1",
+    "virtual-dom": "2.1.1"
+  },
+  "devDependencies": {
+    "cypress": "9.4.1",
+    "now-pipeline": "1.10.0",
+    "npm-run-all": "4.1.2",
+    "pre-git": "3.17.0",
+    "prettier": "2.2.1",
+    "semantic-release": "6.3.1",
+    "standard": "8.5.0",
+    "start-server-and-test": "1.11.7"
+  },
+  "config": {
+    "pre-git": {
+      "commit-msg": [
+        "simple"
+      ],
+      "pre-commit": [
+        "npm test"
+      ],
+      "pre-push": [],
+      "post-commit": [],
+      "post-merge": []
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
+  }
+}
