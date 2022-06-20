@@ -4,18 +4,11 @@
   "version": "0.0.0-semantic-release",
   "main": "src/app.js",
   "scripts": {
-    "pretest": "npm run lint",
-    "test": "run-p --race start cy:run",
-    "lint": "standard --verbose --fix *.js src/**/*.js",
+    "test": "jest",
+    "eslint": "npx eslint --ext .jsx,.js src",
+    "lint": "npx eslint --ext .jsx,.js src",
     "start": "node src/start.js",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "commit": "commit-wizard",
-    "prod-test": "CYPRESS_HOST=$NOW_URL cypress run",
-    "watch": "nodemon",
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "deploy": "now-pipeline --test 'npm run prod-test'",
-    "prune-deploys": "now-pipeline-prune",
     "dev": "start-test 3000 cy:open"
   },
   "repository": {
@@ -59,32 +52,21 @@
     "virtual-dom": "2.1.1"
   },
   "devDependencies": {
+    "babel-jest": "^25.5.1",
+    "eslint-plugin-jest": "^23.11.0",
+    "jest": "^25.5.4",
     "cypress": "9.4.1",
+    "eslint": "8.18.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-plugin-cypress": "2.12.1",
+    "eslint-plugin-import": "2.26.0",
     "now-pipeline": "1.10.0",
-    "npm-run-all": "4.1.2",
-    "pre-git": "3.17.0",
     "prettier": "2.2.1",
     "semantic-release": "6.3.1",
     "standard": "8.5.0",
     "start-server-and-test": "1.11.7"
   },
-  "config": {
-    "pre-git": {
-      "commit-msg": [
-        "simple"
-      ],
-      "pre-commit": [
-        "npm test"
-      ],
-      "pre-push": [],
-      "post-commit": [],
-      "post-merge": []
-    }
-  },
   "env": {
     "NODE_ENV": "production"
-  },
-  "release": {
-    "analyzeCommits": "simple-commit-message"
   }
 }

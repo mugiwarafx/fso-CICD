@@ -1,3 +1,4 @@
+/*eslint no-redeclare: [2, { "builtinGlobals": false }]*/
 const la = require('lazy-ass')
 const is = require('check-more-types')
 /* global describe, it */
@@ -15,7 +16,7 @@ describe('render', () => {
       add: noop,
       remove: noop,
       mark: noop,
-      clearCompleted: noop
+      clearCompleted: noop,
     }
     const tree = render(Todos)
     la(is.object(tree))
@@ -23,15 +24,18 @@ describe('render', () => {
 
   it('renders a couple todos', () => {
     const Todos = {
-      items: [{
-        what: 'foo'
-      }, {
-        what: 'bar'
-      }],
+      items: [
+        {
+          what: 'foo',
+        },
+        {
+          what: 'bar',
+        },
+      ],
       add: noop,
       remove: noop,
       mark: noop,
-      clearCompleted: noop
+      clearCompleted: noop,
     }
     const tree = render(Todos)
     la(is.object(tree))
